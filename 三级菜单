@@ -1,0 +1,98 @@
+#!/usr/bin/env python
+#-*- encoding:utf-8 -*-
+
+# 一级菜单
+def menu1():
+    print('一级菜单'.center(40,'-'))
+    for index1,key1 in enumerate(dic.keys(),1):   # 遍历一级菜单
+        print(index1,key1)
+        dic_key[str(index1)] = key1
+    # print(dic_key)
+    choose = input("请选择1级菜单，输入B返回上一级菜单，输入Q退出菜单:")
+    if choose == 'q':quit()
+    elif choose == 'b':
+        print("此处为一级菜单，不能返回")
+    elif dic_key.get(choose):
+        menu2(dic_key[choose])      # 将二级菜单的key传给函数menu2
+    else:
+        print("输入有误，请重新输入")
+ 
+ 
+def menu2(choose1):
+    print('二级菜单'.center(40, '-'))
+    for index2,key2 in enumerate(dic[choose1].keys(),1):      # 遍历二级菜单
+        print(index2,key2)
+        dic_key[str(index2)] = key2
+    choose2 = input("请选择2级菜单，输入B返回上一级菜单，输入Q退出菜单")
+    if choose2 == 'q':quit()
+    elif choose2 == 'b':
+        menu1()
+    elif dic_key.get(choose2):
+        menu3(choose1,dic_key[choose2])
+    else:
+        print("输入有误，请重新输入")
+ 
+ 
+def menu3(choose1,choose2):
+    print('三级菜单'.center(40, '-'))
+    for index3, key3 in enumerate(dic[choose1][choose2].keys(), 1):
+        print(index3, key3)
+        dic_key[str(index3)] = key3
+    choose3 = input("请选择3级菜单，输入B返回上一级菜单，输入Q退出菜单")
+    if choose3 == 'q':
+        quit()
+    elif choose3 == 'b':
+        menu2(choose1)
+    elif dic_key.get(choose3):
+        menu4(choose1,choose2,dic_key[choose3])
+    else:
+        print("输入有误，请重新输入")
+ 
+ 
+def menu4(choose1,choose2,choose3):
+    for index4, vaule in enumerate(dic[choose1][choose2][choose3],1):
+        print(index4, vaule)
+ 
+ 
+if __name__ == '__main__':
+    dic = {
+            '北京': {
+                '东城':
+                    {
+                        '沙河': ['沙河机场', '链家'],
+                        '天通苑': ['北方明珠', '天通尾货']
+                    },
+                '朝阳':
+                    {
+                        '花家地': ['朝阳公园', '望京soho'],
+                        '北小河': ['北小河公园', '北京中学']
+                    }
+            },
+            '上海': {
+                '虹桥':
+                    {
+                        '虹桥机场': ['超市', '特产店', '水吧'],
+                        '东方明珠': ['电影院', '游泳馆', '餐馆']
+                    },
+                '浦东':
+                    {
+                        '景秀路': ['世纪公园', '立交桥'],
+                        '中环路': ['鲁迅公园', '同济大学']
+                    }
+            },
+            '河北': {
+                '石家庄':
+                    {
+                        '行唐': ['东正', '阳关'],
+                        '赵县': ['赵州桥', '高村乡']
+                    },
+                '唐山':
+                    {
+                        '滦南县': ['司各庄镇', '安各庄镇'],
+                        '玉田县': ['玉田镇', '亮甲店镇']
+                    }
+            }
+        }
+    dic_key = {}
+    while True:
+        menu1()
